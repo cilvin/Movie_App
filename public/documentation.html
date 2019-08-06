@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Movie Reel</title>
+    </head>
+    <body>
+        <h1>Movie Reel</h1>
+        <p>
+        Movie enthusiasts want to be able to access information about different movies,
+        directors, and genres. The server-side of the myFlix application will ensure they have
+        access to this information, that their requests can be processed, and that all necessary
+        data can be stored.
+
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Business Logic</th>
+                    <th>URL</th>
+                    <th>HTTP Method</th>
+                    <th>Request body data format</th>
+                    <th>Response body data format</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Return a list of ALL movies to the user</td>
+                    <td>/Movies</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>JSON object holding data about all of the movies</td> 
+                </tr>
+                <tr>
+                    <td>Return data about a single movie by title to the user</td>
+                    <td>/Movies/:Title</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>JSON object holding data about the movie selected by the user</td>
+                </tr>
+                <tr>
+                    <td>Return data about a genre by movie title</td>
+                    <td>/Genre/:Name</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>JSON object holding data about the genre of the movie that was selected by the user </td>
+                </tr>
+                <tr>
+                    <td>Return data about a director by name</td>
+                    <td>/Director/:Name</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>JSON object holding data about the director selected by the user</td>
+                </tr>
+                <tr>
+                    <td>Allow new users to register</td>
+                    <td>/Users</td>
+                    <td>POST</td>
+                    <td>A JSON object holding data about the user like so:
+                        <p class="example">
+                            {
+                            Username: 'Mia',
+                            Password: 'hellopassword',
+                            Email: '456@gmail.com',
+                            Birthday: '01/01/2000',
+                            FavoriteMovies:[]
+                            }
+                        </p>
+                    </td>
+                    <td> A JSON object holding data about the user, with an automatically assigned id:
+                        <p class="example">
+                            {
+                            id: '12283080d8038d08d0d',
+                            Username: 'Mia',
+                            Password: 'hellopassword',
+                            Email: '456@gmail.com',
+                            Birthday: '01/01/2000',
+                            FavoriteMovies:[]
+                            }
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Allow users to update their user info</td>
+                    <td>/users/:username</td>
+                    <td>POST</td>
+                    <td>JSON object holding existing user information like so (ID cannot be changed and users are not required to change any specific field):
+                       <p class="example">
+                         {
+                            Username: 'Mia',
+                            Password: 'hellopassword',
+                            Email: '456@gmail.com',
+                            Birthday: '01/01/2000',
+                            FavoriteMovies:[]
+                        }
+                        </p>
+                    </td>
+                    <td> JSON obejct confirming the number of user objects modified and how many fields were changed(if the two fields equal 0 that means the username was not recognized):
+                        <p class="example">
+                            {
+                            usersChanged: 1,
+                            fieldsChanged: 1
+                            }
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Allow users to add a movie to their list of favorites</td>
+                    <td>/users/:username/FavoriteMovies/:ObjectId</td>
+                    <td>POST</td>
+                    <td>None</td>
+                    <td>JSON object holding data about the user with the updated version of their movie list:
+                        <p class="example">
+                            {
+                                id: '12283080d8038d08d0d',
+                                Username: 'Mia',
+                                Password: 'hellopassword',
+                                Email: '456@gmail.com',
+                                Birthday: '01/01/2000',
+                                FavoriteMovies:['389y9d8d9']
+                            }
+                        </p>   
+                    </td>
+                </tr>
+                <tr>
+                    <td>Allow users to remove a movie from their list of favorites</td>
+                    <td>/users/:username/FavoriteMovies/:ObjectId</td>
+                    <td>DELETE</td>
+                    <td>None</td>
+                    <td>JSON object with data about the user, showing the list of favorite movies without the deleted movie/movies</td>
+                        <p class="example">
+                        {
+                            id: '12283080d8038d08d0d',
+                            Username: 'Mia',
+                            Password: 'hellopassword',
+                            Email: '456@gmail.com',
+                            Birthday: '01/01/2000',
+                            FavoriteMovies:['389y9d8d9']
+                        }
+                        </p>   
+                </tr>
+                <tr>
+                    <td>Allow existing users to deregister</td>
+                    <td>/Users/:Name</td>
+                    <td>None</td>
+                    <td>Text message confirming that the users account has been deleted:
+                        <p class="example">Mia was successfully deleted</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
