@@ -23,6 +23,7 @@ mongoose.connect('mongodb+srv://cilvin:!808Finesse@cluster0-r1vsv.mongodb.net/Mo
 
 
 
+
 //Invoke middleware functions
 app.use(express.static('public'));
 app.use(morgan('common'));
@@ -241,15 +242,9 @@ app.delete('/users/:Username', passport.authenticate('jwt', { session:false}), f
     })
 });
 
-
-
-
-
 var port = process.env.PORT || 3000;
 app.listen(port, '0.0.0.0', function() {
 console.log('Listening on port 3000');
 });
-
-
 
 console.log('yup');
