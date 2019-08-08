@@ -7,9 +7,9 @@ import { RegistrationView } from '../registration-view/registration-view';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Navbar from 'react-bootstrap/Navbar'
-
-import './main-view.scss'
+import Navbar from 'react-bootstrap/Navbar';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import './main-view.scss';
 
 export class MainView extends React.Component {
     constructor() {
@@ -19,50 +19,52 @@ export class MainView extends React.Component {
 
         // Iitialize the state to an empty object so we can destructure it later
         this.state = {
-            movie: null,
-            selectedMovie: null,
-            user: null,
-            newUser: false
+            movie: [],
+            user: null
+            
         };
     }
     //One of the "hooks" available in a react component 
     componentDidMount() {
-        axios.get('https://murmuring-plateau-43729.herokuapp.com/movies')
-            .then(response => { 
-            // Assign the result to the state
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
             this.setState({
-                movies:response.data
+                user: localStorage.getItem('user')
             });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-    //Takes users to movie-view
-    onMovieClick(movie) {
-        this.setState({
-            selectedMovie: movie
-        });
+            this.getMovies(accessToken);
+        }
+       
     }
 
-    //Takes users back to main-view
-    onBackClick(movie) {
-        this.setState({
-            selectedMovie: null
-        });
-    }
+
     
-    onLoggedIn(user) {
+    onLoggedIn(authData) {
+        console.log(authData);
         this.setState({
-            user
+          user: authData.user.Username
         });
-    }
+      
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.Username);
+        this.getMovies(authData.token);
+      }
 
-    newUser() {
-        this.setState({
-            newUser: true
+      getMovies(token) {
+        axios.get('https://floating-ocean-36499.herokuapp.com/movies', {
+          headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+          // Assign the result to the state
+          this.setState({
+            movies: response.data
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
         });
-    }
+      }
+
+  
 
     onSignedIn(user) {
         this.setState({
@@ -71,11 +73,7 @@ export class MainView extends React.Component {
         });
     }
 
-    alreadyRegistered() {
-        this.setState({
-            newUser:false
-        })
-    }
+    
 
 
 
@@ -84,32 +82,38 @@ export class MainView extends React.Component {
     render() {
         // If the state isn't initialized, this will throw on runtime
         // before the data is initially loaded 
-        const {movies, selectedMovie, user, newUser} = this.state;
-
-        if (!user && newUser ===false) return <LoginView onClick={() => this.newUser()} onLoggedIn={user => this.onLoggedIn(user)} />
-        
-        if (newUser) return <RegistrationView onClick={() => this.alreadyRegistered()} onSignedIn={user => this.onSignedIn(user)} />
+        const {movies,  user} = this.state;
        
         //Before the movies have been loaded
-        if(!movies) return <body className='mv'/>;
+        if(!movies) return <div className='mv'/>;
 
         return (
-            <div className='mv'>
+            <Router>
+                <div className='mv'>
                
-                <Navbar   className='title' fluid='true' ><Navbar.Brand >Welcome to my Movie Reel App</Navbar.Brand></Navbar>
+                    <Navbar   className='title' fluid='true' ><Navbar.Brand >Welcome to my Movie Reel App</Navbar.Brand></Navbar>
                 
-                <Container className='main-view'>
-                    <Row>
-                        {selectedMovie
-                            ? <Col><MovieView movie={selectedMovie} onClick={button => this.onBackClick()}/></Col>
-                            : movies.map(movie => ( 
-                            <Col xl={4} sm={6} md={4} xs={10}><MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/></Col>
+                    <Container className='main-view'>
+                        <Row>
+                            <Route exact path='/' render={ () => {
+                                if(!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>;
+                                return movies.map(movie => (
+                                    <Col key={movie._id} xl={4} sm={6} md={4} xs={10}>
+                                        <MovieCard key={movie._id} movie={movie} />
+                                    </Col> 
                                 ))}
-                    </Row>
-                </Container>
-                <Navbar fixed='bottom'  className='foot' fluid='true' ><Navbar.Brand className='t'></Navbar.Brand></Navbar>
+                            }/>
+                            <Route path='/movies/:movieId' render={ ({match}) => <MovieView movie={movies.find(movie => movie._id === match.params.movieId)}/>}/>
+                            
+                            <Route path='/register' render={() => <RegistrationView onSignedIn={user => this.onSignedIn(user)} />}/>
+
+                               
+                        </Row>
+                    </Container>
+                    <Navbar fixed='bottom'  className='foot' fluid='true' ><Navbar.Brand ></Navbar.Brand></Navbar>
                 
-            </div>
+                </div>
+            </Router>
         );
     }
 }
