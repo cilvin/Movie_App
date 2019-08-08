@@ -7,9 +7,9 @@ import { RegistrationView } from '../registration-view/registration-view';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Navbar from 'react-bootstrap/Navbar'
-
-import './main-view.scss'
+import Navbar from 'react-bootstrap/Navbar';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import './main-view.scss';
 
 export class MainView extends React.Component {
     constructor() {
@@ -20,7 +20,7 @@ export class MainView extends React.Component {
         // Iitialize the state to an empty object so we can destructure it later
         this.state = {
             movie: null,
-            selectedMovieId: null,
+            selectedMovie: null,
             user: null,
             newUser: false
         };
@@ -34,18 +34,10 @@ export class MainView extends React.Component {
             });
             this.getMovies(accessToken);
         }
-        //Hash routing
-        window.addEventListener('hashchange', this.handlNewHash, false);
-        this.handlNewHash();
+       
     }
 
-    handlNewHash = () => {
-        const movieId = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
-        
-        this.setState({
-            selectMovieId: movieId[0]
-        });
-    }
+   
     //Takes users to movie-view
     onMovieClick(movie) {
         window.location.hash = '#' + movie._id;
@@ -113,7 +105,7 @@ export class MainView extends React.Component {
     render() {
         // If the state isn't initialized, this will throw on runtime
         // before the data is initially loaded 
-        const {movies, selectedMovieId, user, newUser} = this.state;
+        const {movies, selectedMovie, user, newUser} = this.state;
 
         if (!user && newUser ===false) return <LoginView onClick={() => this.newUser()} onLoggedIn={user => this.onLoggedIn(user)} />
         
@@ -121,25 +113,23 @@ export class MainView extends React.Component {
        
         //Before the movies have been loaded
         if(!movies) return <div className='mv'/>;
-        const selectedMovie = selectedMovieId ? movies.find(m => m._id === selectedMovieId) : null;
 
         return (
-            <div className='mv'>
+            <Router>
+                <div className='mv'>
                
-                <Navbar   className='title' fluid='true' ><Navbar.Brand >Welcome to my Movie Reel App</Navbar.Brand></Navbar>
+                    <Navbar   className='title' fluid='true' ><Navbar.Brand >Welcome to my Movie Reel App</Navbar.Brand></Navbar>
                 
-                <Container className='main-view'>
-                    <Row>
-                        {selectedMovie
-                            ? <Col><MovieView movie={selectedMovie} onClick={button => this.onBackClick()}/></Col>
-                            : movies.map(movie => ( 
-                            <Col xl={4} sm={6} md={4} xs={10}><MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/></Col>
-                                ))}
-                    </Row>
-                </Container>
-                <Navbar fixed='bottom'  className='foot' fluid='true' ><Navbar.Brand className='t'></Navbar.Brand></Navbar>
+                    <Container className='main-view'>
+                        <Row>
+                            <Col><Route exact path='/' render={() => movies.map(m => <MovieCard key={m._id} moive={m}/>)}/></Col>
+                            <Col xl={4} sm={6} md={4} xs={10}><Route path='/movies/:movieId' render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/></Col>
+                        </Row>
+                    </Container>
+                    <Navbar fixed='bottom'  className='foot' fluid='true' ><Navbar.Brand ></Navbar.Brand></Navbar>
                 
-            </div>
+                </div>
+            </Router>
         );
     }
 }
