@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';
 import './login-view.scss';
+import axios from 'axios';
 
 export function LoginView(props) {
     const [ username, setUsername ] =useState('');
@@ -27,13 +27,13 @@ export function LoginView(props) {
 
     return (
         <Form>
-            <Form.Group controlId='formBasicEmail'>
+            <Form.Group controlId="formBasicEmail">
                 <Form.Label>Username:</Form.Label>
-                <Form.Control type='text' value={username} onChange={e => setUsername(e.target.value)} placeholder='Enter email' />
-                <Form.Text className="text-muted">
+                <Form.Control type='text' value={username} onChange={e => setUsername(e.target.value)}  placeholder='Enter email' />
+                <Form.Text className="text-mute">
                 </Form.Text>
             </Form.Group>
-            <Form.Group controlId='formBasicPassword'>
+            <Form.Group controlId="formBasicPassword">
                 <Form.Label>Password:</Form.Label>
                 <Form.Control  type='password' value={password} onChange={e => setPassword(e.target.value)}  placeholder='Enter Password' />
                 <Form.Text className='text-muted'>
@@ -55,5 +55,5 @@ export function LoginView(props) {
 
 LoginView.propTypes = {
     onLoggedIn: PropTypes.func.isRequired,
-    onClick: PropTypes.func.isRequired
+   
 };
