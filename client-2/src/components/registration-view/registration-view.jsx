@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './registration-view.scss';
+import axios from 'axios';
 
 export function RegistrationView(props) {
     const[ username, setUsername] = useState('');
@@ -11,13 +11,25 @@ export function RegistrationView(props) {
     const[ birthday, setBirthday] = useState('');
 
 
-const handleSubmit = (e) => {
-    e.preventDefault(); 
-    console.log(username, password);
-    /* Send a request to the server for authentication */
-    /* then call props.onLoggedIn(username) */
-    props.onLoggedIn(username);
-};
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        /* Send a request to the server for authentication */
+        axios.post('https://floating-ocean-36499.herokuapp.com/users', {
+          Username: username,
+          Password: password,
+          Email: email,
+          Birthday: birthday
+
+        })
+        .then(response => {
+          const data = response.data;
+          console.log(data);
+          window.open('/', '_self');
+        })
+        .catch(e => {
+          console.log('cant register user')
+        });
+      };
 
 return(
     <Form>
@@ -47,11 +59,3 @@ return(
 );
 }
 
-RegistrationView.propTypes = {
-    onLoggedIn: PropTypes.func.isRequired,
-    onClick: PropTypes.func.isRequired,
-    username: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    birthday: PropTypes.string.isRequired
-};
