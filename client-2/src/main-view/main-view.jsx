@@ -19,7 +19,7 @@ export class MainView extends React.Component {
 
         // Iitialize the state to an empty object so we can destructure it later
         this.state = {
-            movie: null,
+            movie: [],
             selectedMovie: null,
             user: null,
             newUser: false
@@ -122,8 +122,19 @@ export class MainView extends React.Component {
                 
                     <Container className='main-view'>
                         <Row>
-                            <Col><Route exact path='/' render={() => movies.map(m => <MovieCard key={m._id} moive={m}/>)}/></Col>
-                            <Col xl={4} sm={6} md={4} xs={10}><Route path='/movies/:movieId' render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/></Col>
+                            <Route exact path='/' render={ () => {
+                                if(!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>;
+                                return movies.map(movie => (
+                                    <Col key={movie._id} xl={4} sm={6} md={4} xs={10}>
+                                        <MovieCard key={movie._id} movie={movie} />
+                                    </Col> 
+                                ))}
+                            }/>
+                            <Route path='/movies/:movieId' render={ ({match}) => <MovieView movie={movies.find(movie => movie._id === match.params.movieId)}/>}/>
+                            
+                            <Route path='/register' render={() => <RegistrationView onSignedIn={user => this.onSignedIn(user)} />}/>
+
+                               
                         </Row>
                     </Container>
                     <Navbar fixed='bottom'  className='foot' fluid='true' ><Navbar.Brand ></Navbar.Brand></Navbar>
