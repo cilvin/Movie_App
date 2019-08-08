@@ -56,7 +56,7 @@ export class MainView extends React.Component {
         .then(response => {
           // Assign the result to the state
           this.setState({
-            movies: response.data
+            movie: response.data
           });
         })
         .catch(function (error) {
@@ -69,7 +69,7 @@ export class MainView extends React.Component {
     onSignedIn(user) {
         this.setState({
             user: user,
-            register:false
+            
         });
     }
 
@@ -85,11 +85,11 @@ export class MainView extends React.Component {
         const {movies,  user} = this.state;
        
         //Before the movies have been loaded
-        if(!movies) return <div className='mv'/>;
+        if(!movies) return <div className='main-view'/>;
 
         return (
             <Router>
-                <div className='mv'>
+                <div className='main-view'>
                
                     <Navbar   className='title' fluid='true' ><Navbar.Brand >Welcome to my Movie Reel App</Navbar.Brand></Navbar>
                 
