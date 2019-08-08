@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import './movie-card.scss'
+import './movie-card.scss';
+import { Link } from 'react-router-dom';
 
 export class MovieCard extends React.Component {
     render() {
@@ -13,7 +14,7 @@ export class MovieCard extends React.Component {
 
     return (
         <Card>
-            <Card.Header className='CH'  as='center' onClick={() => onClick(movie)} className='movie-card'>{movie.Title}
+            <Card.Header >{movie.Title}
             </Card.Header>
             <br>
             </br>
@@ -25,7 +26,10 @@ export class MovieCard extends React.Component {
             </br>
             <br>
             </br>
-            <Button type='button' as='button' className='cardbtn' variant='outline-dark' size='sm'   onClick={() => onClick(movie)} className='movie-button'>Click Here</Button>
+            <Link to={`/movies/${movie._id}`}>
+                <Button type='button' as='button'  variant='outline-dark' size='sm'   className='movie-button'>Click Here</Button>
+            </Link>
+            
         </Card>
         );
     }
