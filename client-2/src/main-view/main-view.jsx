@@ -20,7 +20,7 @@ export class MainView extends React.Component {
         // Iitialize the state to an empty object so we can destructure it later
         this.state = {
             movie: null,
-            selectedMovie: null,
+            selectedMovieId: null,
             user: null,
             newUser: false
         };
@@ -34,11 +34,23 @@ export class MainView extends React.Component {
             });
             this.getMovies(accessToken);
         }
+        //Hash routing
+        window.addEventListener('hashchange', this.handlNewHash, false);
+        this.handlNewHash();
+    }
+
+    handlNewHash = () => {
+        const movieId = window.location.hash.replace(/^#\/?|\/$/g, '').split('/');
+        
+        this.setState({
+            selectMovieId: movieId[0]
+        });
     }
     //Takes users to movie-view
     onMovieClick(movie) {
+        window.location.hash = '#' + movie._id;
         this.setState({
-            selectedMovie: movie
+            selectedMovie: movie._id
         });
     }
 
@@ -101,14 +113,15 @@ export class MainView extends React.Component {
     render() {
         // If the state isn't initialized, this will throw on runtime
         // before the data is initially loaded 
-        const {movies, selectedMovie, user, newUser} = this.state;
+        const {movies, selectedMovieId, user, newUser} = this.state;
 
         if (!user && newUser ===false) return <LoginView onClick={() => this.newUser()} onLoggedIn={user => this.onLoggedIn(user)} />
         
         if (newUser) return <RegistrationView onClick={() => this.alreadyRegistered()} onSignedIn={user => this.onSignedIn(user)} />
        
         //Before the movies have been loaded
-        if(!movies) return <body className='mv'/>;
+        if(!movies) return <div className='mv'/>;
+        const selectedMovie = selectedMovieId ? movies.find(m => m._id === selectedMovieId) : null;
 
         return (
             <div className='mv'>
