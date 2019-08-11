@@ -35,7 +35,7 @@ export class MovieView extends React.Component {
                     </Link>
                 </div>
                 <div className='movie-director'>
-                    <Link to={`/directors/${movie.Director.Name}`}>
+                    <Link to={`/director/${movie.Director.Name}`}>
                         <h3 className='label'>Director</h3>
                         <Button variant='outline-dark'><p className='value'>{movie.Director.Name}</p></Button>
                     </Link>
@@ -51,5 +51,5 @@ MovieView.propTypes = {
     movie: PropTypes.shape({
         Title: PropTypes.string,
     }).isRequired,
-    onClick: PropTypes.func.isRequired
+   
 };
