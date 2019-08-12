@@ -26,8 +26,9 @@ export function RegistrationView(props) {
           console.log(data);
           window.open('/', '_self');
         })
-        .catch(e => {
-          console.log('cant register user')
+        .catch(err => {
+          console.error('user already exists: ', err);
+       
         });
       };
 
@@ -52,9 +53,10 @@ return(
             <Form.Label>Birthday:</Form.Label>
             <Form.Control type='birthday' value={birthday} onChange={e => setBirthday(e.target.value)} placeholder='Enter Birthday'/>
         </Form.Group>
-        <Button variant='outline-dark' type='submit' onClick={handleSubmit}>
+        <Button variant='outline-dark' type='submit' onClick={e => handleSubmit(e)}>
             Submit
         </Button>
+        
     </Form>
 );
 }
