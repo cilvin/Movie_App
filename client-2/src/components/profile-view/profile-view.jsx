@@ -89,25 +89,25 @@ export class ProfileView extends React.Component {
 
          return (
              <div className='profile-view'>
-                <h1 className='director'>User Profile</h1>
+                <h4 className='director'>User Profile</h4>
                 <div className='username'>
-                    <div className='label'>Name</div>
+                    <h4 className='label'>Name:</h4>
                     <div className='value'>{user.Username}</div>
                 </div>
                 <div className='password'>
-                    <div className='label'>Password</div>
+                    <h4 className='label'>Password:</h4>
                     <div className='value'>********</div>
                 </div>
                 <div className='birthday'>
-                    <div className='label'>Birthday</div>
+                    <h2 className='label'>Birthday</h2>
                     <div className='value'>{user.Birthday}</div>
                 </div>
                 <div className='email'>
-                    <div className='label'>Email</div>
+                    <h4 className='label'>Email:</h4>
                     <div className='value'>{user.Email}</div>
                 </div>
                 <div className='favoritemovies'>
-                    <div className='label'>Favorite Movies</div>
+                    <h4 className='label'>Favorite Movies:</h4>
                     <div className='value'>{user.FavoriteMovies}</div>
                 </div>
                 <Link to={'/'}>
