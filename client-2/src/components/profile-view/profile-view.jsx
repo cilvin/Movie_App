@@ -85,7 +85,7 @@ export class ProfileView extends React.Component {
      render() {
          const { user } = this.props;
 
-         if (!user) return null;
+         if (!user ) return null;
 
          return (
              <div className='profile-view'>
