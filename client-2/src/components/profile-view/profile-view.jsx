@@ -5,6 +5,7 @@ import './profile-view.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
+import ListGroup from 'react-bootstrap/ListGroup';
 //import { FORM } from 'dns';
 
 
@@ -38,6 +39,14 @@ export class ProfileView extends React.Component {
             alert('failed to delete user');
         });
     };
+
+    removeMovie() {
+        axios.delete(`https://floating-ocean-36499.herokuapp.com/users/${this.props.user.Username}/FavoriteMovies/${this.props.movie._id}`, {
+            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+        })
+        
+        
+    }
 
     handleChange(event) {
         this.setState( {[event.target.name]: event.target.value} )
@@ -108,7 +117,9 @@ export class ProfileView extends React.Component {
                 </div>
                 <div className='favoritemovies'>
                     <h4 className='label'>Favorite Movies:</h4>
-                    <div className='value'>{user.FavoriteMovies}</div>
+                    <Link onClick={(event) => this.removeMovie(event)}>
+                        <div className='value'>{user.FavoriteMovies}</div>
+                    </Link>
                 </div>
                 <Link to={'/'}>
                     <Button className='view-btn' variant='outline-dark' type='button'>
