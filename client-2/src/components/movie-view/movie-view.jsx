@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import './movie-view.scss';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 export class MovieView extends React.Component {
@@ -11,8 +12,29 @@ export class MovieView extends React.Component {
 
         this.state = {};
     }
+
+    submitLike(event) {
+        event.preventDefault();
+        console.log(this.state.username);
+        axios.post(`https://floating-ocean-36499.herokuapp.com/users/${localStorage.getItem('user')}/FavoriteMovies/${this.props.movie._id}`, {
+          Username: localStorage.getItem('user')
+        }, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+        })
+        .then(response => {
+          console.log(response);
+          alert('Movie has been added to your Favorite List!');
+          //update localStorage
+          localStorage.setItem('user', this.state.username);
+        })
+        .catch(event => {
+          console.log('error adding movie to list');
+          alert('Ooooops... Something went wrong!');
+        });
+      };
+
      render() {
-         const { movie, onClick } = this.props;
+         const { movie, } = this.props;
 
          if (!movie) return null;
 
@@ -37,10 +59,14 @@ export class MovieView extends React.Component {
                 <div className='movie-director'>
                     <Link to={`/director/${movie.Director.Name}`}>
                         <h3 className='label'>Director</h3>
-                        <Button variant='outline-dark'><p className='value'>{movie.Director.Name}</p></Button>
                     </Link>
+                    <h4>{movie.Director.Name}</h4>
                 </div>
-                <Button variant='outline-dark' onClick={() => onClick()}>Back</Button>
+                <Link to={'/'}>
+                <Button variant='outline-dark' >Back</Button>
+                </Link>
+                
+                <Button variant='outline-dark' onClick={event => this.submitLike(event)}>Like</Button>
              </div>
          );
      }
