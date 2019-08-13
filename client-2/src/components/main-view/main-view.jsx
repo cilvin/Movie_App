@@ -34,7 +34,9 @@ export class MainView extends React.Component {
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
             this.setState({
-                user: localStorage.getItem('user')
+                user: localStorage.getItem('user'),
+                profileData: localStorage.getItem('user')
+
             });
             this.getMovies(accessToken);
         }
@@ -148,6 +150,10 @@ export class MainView extends React.Component {
 
 
                             <Route exact path='/profile' render={() => <ProfileView user={profileData} />}/>
+
+                            <Route exact path='/profile/users/:Username/FavoriteMovies/:movieId' user={profileData}  render={ ({match}) => <ProfileView movie={movies.find(movie => movie._id === match.params.movieId)}/>}/>
+
+                            <Route exact path='/profile/users/:Username' user={profileData}  render={ ({match}) => <ProfileView user={user.find(user => user.Username === match.params.Username)}/>}/>
                         </Row>
                     </Container>
                 
