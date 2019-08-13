@@ -18,8 +18,8 @@ export class GenreView extends React.Component {
 
          return (
              <div className='genre-view'>
-                <h1 className='genre'>{genre.Name}</h1>
-                <div className='description'>{genre.Description}</div>
+                <h1 className='genre'>{genre.Genre.Name}</h1>
+                <div className='description'>{genre.Genre.Description}</div>
                 <Link to={'/'}>
                     <Button variant='outline-dark'>Back</Button>
                 </Link>
@@ -35,5 +35,4 @@ GenreView.propTypes = {
         Name: PropTypes.string,
         Description: PropTypes.string
     }).isRequired,
-    onClick: PropTypes.func.isRequired
 };

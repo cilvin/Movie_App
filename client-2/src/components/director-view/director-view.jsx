@@ -18,13 +18,13 @@ export class DirectorView extends React.Component {
 
          return (
              <div className='director-view'>
-                <h1 className='director'>{director.Name}</h1>
+                <h1 className='director'>{director.Director.Name}</h1>
                 <h2>Biography</h2>
-                <div className='bio'>{director.Bio}</div>
+                <div className='bio'>{director.Director.Bio}</div>
                 <h2>Born</h2>
-                <div className='birth'>{director.Birth}</div>
+                <div className='birth'>{director.Director.Birth}</div>
                 <h2>Died</h2>
-                <div className='death'>{director.Death}</div>
+                <h5 className='death'>{director.Director.Death}</h5>
                 <Link to={'/'}>
                     <Button variant='outline-dark' >Back</Button>
                 </Link>
@@ -41,5 +41,5 @@ DirectorView.propTypes = {
         Bio: PropTypes.string,
         Death: PropTypes.string
     }).isRequired,
-    onClick: PropTypes.func.isRequired
+    
 };
