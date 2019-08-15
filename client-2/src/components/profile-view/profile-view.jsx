@@ -18,9 +18,45 @@ export class ProfileView extends React.Component {
             password: null,
             email: null,
             birthday: null,
+            userData: null,
+            favoriteMovies: [],
+            usernameForm: null,
+            passwordForm: null,
+            emailForm: null,
+            birthdayForm: null
            
         };
     }
+
+    componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
+            this.getUser(accessToken);
+           
+        }
+       
+    }
+
+    getUser(token) {
+        let username = localStorage.getItem('user');
+        axios.get(`https://floating-ocean-36499.herokuapp.com/users/${username}`, {
+          headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+          this.setState({
+            userData: response.data,
+            username: response.data.Username,
+            password: response.data.Password,
+            email: response.data.Email,
+            birthday: response.data.Birthday,
+            favoriteMovies: response.data.FavoriteMovies
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
+
 
     //delete user
     deleteUser(event) {
@@ -41,13 +77,22 @@ export class ProfileView extends React.Component {
         });
     };
 
-    removeMovie() {
-        axios.delete(`https://floating-ocean-36499.herokuapp.com/users/${localStorage.getItem('user')}/FavoriteMovies/${this.props.movie._id}`, {
-            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
+    deleteMovie(event, favoriteMovie) {
+        event.preventDefault();
+        console.log(favoriteMovie);
+        axios.delete(`https://floating-ocean-36499.herokuapp.com/users/${localStorage.getItem('user')}/FavoriteMovies/${favoriteMovie}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
         })
-        
-        
-    }
+        .then(response => {
+          // update state with current movie data
+          this.getUser(localStorage.getItem('token'));
+        })
+        .catch(event => {
+          alert('Oops... something went wrong...');
+        });
+      }
+
+    
 
     handleChange(event) {
         this.setState( {[event.target.name]: event.target.value} )
@@ -56,11 +101,11 @@ export class ProfileView extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         console.log(this.state.username);
-        axios.put(`https://floating-ocean-36499.herokuapp.com/users/${this.props.user.Username}`, {
-          Username: this.state.username,
-          Password: this.state.password,
-          Email: this.state.email,
-          Birthday: this.state.birthday
+        axios.put(`https://floating-ocean-36499.herokuapp.com/users/${localStorage.getItem('user')}`, {
+          Username: this.state.UsernameForm,
+          Password: this.state.passwordForm,
+          Email: this.state.emailForm,
+          Birthday: this.state.birthdayForm
         }, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
         })
@@ -68,7 +113,11 @@ export class ProfileView extends React.Component {
           console.log(response);
           alert('Your data has been updated!');
           //update localStorage
-          localStorage.setItem('user', this.state.username);
+          localStorage.setItem('user', this.state.usernameForm);
+          // call getUser() to display changed userdata after submission
+          this.getUser(localStorage.getItem('token'));
+          //reset form after submitting data
+          document.getElementsByClassName('changeDataForm')[0].requestFullscreen();
         })
         .catch(event => {
           console.log('error updating the userdata');
@@ -79,13 +128,13 @@ export class ProfileView extends React.Component {
 
     toggleForm() {
         let form = document.getElementsByClassName('changeDataForm')[0];
-        let toggleButton = document.getElementsById('toggleButton');
+        let toggleButton = document.getElementById('toggleButton');
         
         form.classList.toggle('show-form');
         if(form.classList.contains('show-form')) {
             toggleButton.innerHTML = 'CHANGE DATA &uarr;';
         } else {
-            toggleButton.innerHTML = 'CHANGE DATA &uarr;';
+            toggleButton.innerHTML = 'CHANGE DATA &darr;';
         }
     }
 
@@ -93,16 +142,16 @@ export class ProfileView extends React.Component {
 
 
      render() {
-         const { user } = this.props;
+         const { userData, username, email, birthday, favoriteMovies } = this.state;
 
-         if (!user ) return null;
+         if (!userData ) return null;
 
          return (
              <div className='profile-view'>
                 <h4 className='director'>User Profile</h4>
                 <div className='username'>
                     <h4 className='label'>Name:</h4>
-                    <div className='value'>{user.Username}</div>
+                    <div className='value'>{username}</div>
                 </div>
                 <div className='password'>
                     <h4 className='label'>Password:</h4>
@@ -110,17 +159,20 @@ export class ProfileView extends React.Component {
                 </div>
                 <div className='birthday'>
                     <h2 className='label'>Birthday</h2>
-                    <div className='value'>{user.Birthday}</div>
+                    <div className='value'>{birthday}</div>
                 </div>
                 <div className='email'>
                     <h4 className='label'>Email:</h4>
-                    <div className='value'>{user.Email}</div>
+                    <div className='value'>{email}</div>
                 </div>
                 <div className='favoritemovies'>
-                    <h4 className='label'>Favorite Movies:</h4>
-                    <Link onClick={(event) => this.removeMovie(event)}>
-                        <div className='value'>{user.FavoriteMovies}</div>
-                    </Link>
+                    <div className='label'>Favorite Movies</div>
+                    {favoriteMovies.length === 0 &&
+                        <div className="value">Your Favorite Movie List is empty :-(</div>
+                    }
+                    {favoriteMovies.length > 0 &&
+                        <div className="value">{favoriteMovies.map(favoriteMovie => (<p key={favoriteMovie}>{JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie)._id}<span onClick={(event) => this.deleteMovie(event, favoriteMovie)}> Delete</span></p>))}</div>
+                    }
                 </div>
                 <Link to={'/'}>
                     <Button className='view-btn' variant='outline-dark' type='button'>
@@ -138,7 +190,7 @@ export class ProfileView extends React.Component {
                     <h2>Change Data</h2>
                     <Form.Group controlId='formBasicUsername'>
                         <Form.Label>Your Username</Form.Label>
-                        <Form.Control type='text' name='username'onChange={event => this.handleChange(event)} placeholder='Enter Username'/>
+                        <Form.Control type='text' name='usernameForm'onChange={event => this.handleChange(event)} placeholder='Enter Username'/>
                         <Form.Text className='text-muted'>
                             Type username here.
                         </Form.Text>
@@ -146,17 +198,17 @@ export class ProfileView extends React.Component {
 
                     <Form.Group controlId='formBasicPassword'>
                         <Form.Label>Your Password</Form.Label>
-                        <Form.Control type='text' name='password'onChange={event => this.handleChange(event)} placeholder='Password'/>
+                        <Form.Control type='text' name='passwordForm'onChange={event => this.handleChange(event)} placeholder='Password'/>
                     </Form.Group>
 
                     <Form.Group controlId='formBasicEmail'>
                         <Form.Label>Your Email</Form.Label>
-                        <Form.Control type='text' name='Email'onChange={event => this.handleChange(event)} placeholder='example@email.com'/>
+                        <Form.Control type='text' name='emailForm'onChange={event => this.handleChange(event)} placeholder='example@email.com'/>
                     </Form.Group>
 
                     <Form.Group controlId='formBasicBirthday'>
                         <Form.Label>Your Birthday</Form.Label>
-                        <Form.Control type='text' name='birthday'onChange={event => this.handleChange(event)} placeholder='Birthday'/>
+                        <Form.Control type='text' name='birthdayForm'onChange={event => this.handleChange(event)} placeholder='Birthday'/>
                     </Form.Group>
 
                     <Button variant='outline-dark' type='button' onClick={event => this.handleSubmit(event)}>

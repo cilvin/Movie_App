@@ -70,6 +70,7 @@ export class MainView extends React.Component {
           this.setState({
             movies: response.data
           });
+          localStorage.setItem('movies', JSON.stringify(this.state.movies));
         })
         .catch(function (error) {
           console.log(error);
@@ -89,6 +90,7 @@ export class MainView extends React.Component {
         //Clears Storage
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem('movies');
 
         //resets user state to render again
         this.setState({
