@@ -225,6 +225,17 @@ app.delete('/Users/:Username/FavoriteMovies/:MovieID', passport.authenticate('jw
  
 });
 
+// get specific user
+app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Users.findOne({ Username : req.params.Username })
+  .then((user) => {
+    res.status(201).json(user)
+  })
+  .catch((error) => {
+    console.error(error);
+    res.status(500).send('Error: ' + error);
+  });
+});
 
 //Allows existing users to deregister
 app.delete('/users/:Username', passport.authenticate('jwt', { session:false}), function (req, res) {
