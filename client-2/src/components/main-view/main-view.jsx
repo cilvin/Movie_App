@@ -31,7 +31,6 @@ export class MainView extends React.Component {
     }
     
     componentDidMount() {
-        let authData = localStorage.getItem('token');
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
             this.setState({
@@ -40,7 +39,7 @@ export class MainView extends React.Component {
 
             });
             this.getMovies(accessToken);
-            this.getMovies(authData.token);
+           
         }
        
     }
@@ -51,7 +50,8 @@ export class MainView extends React.Component {
         console.log(authData);
         this.setState({
           user: authData.user.Username,
-          profileData: authData.user
+          profileData: authData.user,
+          
         });
       
         localStorage.setItem('token', authData.token);
@@ -151,9 +151,9 @@ export class MainView extends React.Component {
                             
 
 
-                            <Route exact path='/profile' render={() => <ProfileView thisUser={user} user={profileData} />}/>
+                            <Route exact path='/profile' render={({match}) => <ProfileView movie={movies.find(movie => movie._id === match.params.movieId)} thisUser={user} user={profileData} />}/>
 
-                            <Route exact path='/profile/:movieId' user={user}  render={ ({match}) => <ProfileView movie={movies.find(movie => movie._id === match.params.movieId)}/>}/>
+                            
 
                             
                         </Row>

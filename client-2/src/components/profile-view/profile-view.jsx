@@ -17,7 +17,8 @@ export class ProfileView extends React.Component {
             username: null,
             password: null,
             email: null,
-            birthday: null
+            birthday: null,
+           
         };
     }
 
@@ -41,7 +42,7 @@ export class ProfileView extends React.Component {
     };
 
     removeMovie() {
-        axios.delete(`https://floating-ocean-36499.herokuapp.com/users/${this.props.user.Username}/FavoriteMovies/${this.props.movie._id}`, {
+        axios.delete(`https://floating-ocean-36499.herokuapp.com/users/${localStorage.getItem('user')}/FavoriteMovies/${this.props.movie._id}`, {
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
         })
         
