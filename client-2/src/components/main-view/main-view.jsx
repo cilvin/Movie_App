@@ -25,7 +25,8 @@ export class MainView extends React.Component {
         this.state = {
             movies: [],
             user: null,
-            profileData: null
+            profileData: null,
+          
             
         };
     }
@@ -51,6 +52,7 @@ export class MainView extends React.Component {
         this.setState({
           user: authData.user.Username,
           profileData: authData.user,
+         
           
         });
       
@@ -151,7 +153,7 @@ export class MainView extends React.Component {
                             
 
 
-                            <Route exact path='/profile' render={({match}) => <ProfileView movie={movies.find(movie => movie._id === match.params.movieId)} thisUser={user} user={profileData} />}/>
+                            <Route exact path='/profile' render={({match}) => <ProfileView onLoggedIn={this.state.onLoggedIn} movie={this.state.movies} thisUser={this.state.user} user={profileData} />}/>
 
                             
 
