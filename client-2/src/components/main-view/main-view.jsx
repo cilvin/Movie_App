@@ -114,20 +114,23 @@ export class MainView extends React.Component {
 
         return (
             <Router>
-                <div className='main-view'>
-              
-                    
                 
-               
-                    <div   className='navbar'>Welcome to my Movie Reel App
-                        <Link to={'/profile'}>
-                            <Button variant='outline-dark'>
+                <header class="header">
+                    <p  class="logo">Welcome to my Movie Reel App</p>
+                    <input class="menu-btn" type="checkbox" id="menu-btn" />
+                    <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+                    <ul class="menu">
+                    <li><Link to={'/profile'}>
+                            <Button id='profilebtn' variant='outline-dark'>
                                 My profile
                             </Button>
-                        </Link> 
-                        <Button variant='outline-dark' onClick={() => this.logOut()}> LogOut</Button>
+                        </Link>
+                     </li>
+                     <li><Button id='logoutbtn' variant='outline-dark' onClick={() => this.logOut()}> LogOut</Button></li>
+                    </ul>
+                </header>
                     
-                    </div>
+                <div className='main-view'>
                 
                     <Container className='main-view'>
                         <Row>

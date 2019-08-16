@@ -3,13 +3,26 @@
 
 .form {
     border-style: solid;
-    border-width: 1px
+    border-width: 1px;
 }
 
 .form-group {
-    margin-top: 80px;
-    ;
+    position: relative;
+    top: 0px;
+
 }
+
+.container {
+    position: relative;
+    top: 30px;
+
+}
+
+.newUsers {
+    position: relative;
+    top: 1px;
+}
+
 
 .form-label {
     font-family: 'Open Sans Condensed', sans-serif;
