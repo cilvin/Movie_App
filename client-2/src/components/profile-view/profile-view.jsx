@@ -102,7 +102,7 @@ export class ProfileView extends React.Component {
         event.preventDefault();
         console.log(this.state.username);
         axios.put(`https://floating-ocean-36499.herokuapp.com/users/${localStorage.getItem('user')}`, {
-          Username: this.state.UsernameForm,
+          Username: this.state.usernameForm,
           Password: this.state.passwordForm,
           Email: this.state.emailForm,
           Birthday: this.state.birthdayForm
@@ -208,7 +208,7 @@ export class ProfileView extends React.Component {
 
                     <Form.Group controlId='formBasicBirthday'>
                         <Form.Label>Your Birthday</Form.Label>
-                        <Form.Control type='text' name='birthdayForm'onChange={event => this.handleChange(event)} placeholder='Birthday'/>
+                        <Form.Control type='text' name='birthdayForm'onChange={event => this.handleChange(event)} placeholder='example: 01/01/1990'/>
                     </Form.Group>
 
                     <Button variant='outline-dark' type='button' onClick={event => this.handleSubmit(event)}>
