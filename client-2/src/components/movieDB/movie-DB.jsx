@@ -1,7 +1,5 @@
 import axios from 'axios';
-// OMDb API Key
-// const api = 'http://www.omdbapi.com/?19aaf52d&';
-// https://developers.themoviedb.org/3/search/search-movies
+
 
 const apiKey = process.env.e23e5607a1801b5693cf7ee99ff11da0;
 
