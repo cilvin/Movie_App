@@ -39,7 +39,9 @@ export class ProfileView extends React.Component {
 
     getUser(token) {
         let username = localStorage.getItem('user');
-        axios.get(`https://floating-ocean-36499.herokuapp.com/users/${username}`, {
+        let userEndpoint = 'https://floating-ocean-36499.herokuapp.com/users/';
+        let url = `${userEndpoint}${username}`;
+        axios.get(url, {
           headers: { Authorization: `Bearer ${token}`}
         })
         .then(response => {
@@ -61,7 +63,10 @@ export class ProfileView extends React.Component {
     //delete user
     deleteUser(event) {
         event.preventDefault();
-        axios.delete(`https://floating-ocean-36499.herokuapp.com/users/${localStorage.getItem('user')}`, {
+        let userEndpoint = 'https://floating-ocean-36499.herokuapp.com/users/';
+        let usernameLocal = localStorage.getItem('user');
+        let url = `${userEndpoint}${usernameLocal}`;
+        axios.delete(url, {
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}
         })
         .then(response => {
@@ -80,7 +85,10 @@ export class ProfileView extends React.Component {
     deleteMovie(event, favoriteMovie) {
         event.preventDefault();
         console.log(favoriteMovie);
-        axios.delete(`https://floating-ocean-36499.herokuapp.com/users/${localStorage.getItem('user')}/FavoriteMovies/${favoriteMovie}`, {
+        let userEndpoint = 'https://floating-ocean-36499.herokuapp.com/users/';
+        let usernameLocal = localStorage.getItem('user');
+        let url = `${userEndpoint}${usernameLocal}/FavoriteMovies/${favoriteMovie}`;
+        axios.delete(url, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
         })
         .then(response => {
@@ -100,8 +108,10 @@ export class ProfileView extends React.Component {
     
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state.username);
-        axios.put(`https://floating-ocean-36499.herokuapp.com/users/${localStorage.getItem('user')}`, {
+        let userEndpoint = 'https://floating-ocean-36499.herokuapp.com/users/';
+        let usernameLocal = localStorage.getItem('user');
+        let url = `${userEndpoint}${usernameLocal}`;
+        axios.put( url, {
           Username: this.state.usernameForm,
           Password: this.state.passwordForm,
           Email: this.state.emailForm,

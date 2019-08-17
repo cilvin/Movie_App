@@ -15,26 +15,31 @@ export class MovieView extends React.Component {
 
     submitLike(event) {
         event.preventDefault();
-        console.log(this.state.username);
-        axios.post(`https://floating-ocean-36499.herokuapp.com/users/${localStorage.getItem('user')}/FavoriteMovies/${this.props.movie._id}`, {
-          Username: localStorage.getItem('user')
+        const { movie } = this.props;
+        let userEndpoint = 'https://floating-ocean-36499.herokuapp.com/users/';
+        let usernameLocal = localStorage.getItem('user');
+        let token = localStorage.getItem('token');
+        let url = `${userEndpoint}${usernameLocal}/FavoriteMovies/${movie._id}`;
+        axios.post(url, {
+          Username: usernameLocal
         }, {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}`}
+          headers: { Authorization: `Bearer ${token}`}
         })
         .then(response => {
+            
           console.log(response);
           alert('Movie has been added to your Favorite List!');
           //update localStorage
           localStorage.setItem('user', this.state.username);
         })
-        .catch(event => {
-          console.log('error adding movie to list');
+        .catch(error => {
+          console.log(error);
           alert('Ooooops... Something went wrong!');
         });
       };
 
      render() {
-         const { movie, } = this.props;
+         const { movie } = this.props;
 
          if (!movie) return null;
 

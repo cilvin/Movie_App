@@ -13,8 +13,9 @@ export function RegistrationView(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        let userEndpoint = 'https://floating-ocean-36499.herokuapp.com/users/';
         /* Send a request to the server for authentication */
-        axios.post('https://floating-ocean-36499.herokuapp.com/users', {
+        axios.post(userEndpoint, {
           Username: username,
           Password: password,
           Email: email,
