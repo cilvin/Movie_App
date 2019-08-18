@@ -13,6 +13,10 @@ export class MovieView extends React.Component {
         this.state = {};
     }
 
+
+  
+    
+
     submitLike(event) {
         event.preventDefault();
         const { movie } = this.props;
@@ -41,6 +45,12 @@ export class MovieView extends React.Component {
      render() {
          const { movie } = this.props;
 
+         
+        const imgUrl= `https://image.tmdb.org/t/p/w500/dM2w364MScsjFf8pfMbaWUcWrR.jpg`;
+         
+        
+        
+
          if (!movie) return null;
 
          return (
@@ -53,7 +63,7 @@ export class MovieView extends React.Component {
                     <h3 className='label'>Description</h3>
                     <p className='value'>{movie.Description}</p>
                 </div>
-                <img alt='' className='movie-poster' src={movie.ImageURL} />
+                <img alt='' className='movie-poster' src={movie.ImageURL || imgUrl } />
 
                 <div className='movie-genre'>
                     <Link to={`/genre/${movie.Genre.Name}`}>

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-const apiKey = process.env.e23e5607a1801b5693cf7ee99ff11da0;
+const apiKey = 'e23e5607a1801b5693cf7ee99ff11da0';
 
 const checkStatus = response => {
   if (response.status >= 200 && response.status < 300) {
