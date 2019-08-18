@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './main-view.scss';
-import {theMovieDBSearch, poster, checkStatus} from '../movieDB/movie-DB';
 
 export class MainView extends React.Component {
     constructor() {

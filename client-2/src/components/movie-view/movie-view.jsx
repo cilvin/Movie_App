@@ -45,10 +45,28 @@ export class MovieView extends React.Component {
      render() {
          const { movie } = this.props;
 
+         //const apiKey = 'e23e5607a1801b5693cf7ee99ff11da0';
+
          
-        const imgUrl= `https://image.tmdb.org/t/p/w500/dM2w364MScsjFf8pfMbaWUcWrR.jpg`;
-         
+       
+
         
+       // const theMovieDBSearch = movie =>
+       // axios.get(
+       // `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}=en-US&query=${movie.Title}&page=1&include_adult=false`
+    
+      //  );
+
+      //  const poster = {
+      //  loadSize: (size = 'w300', posterPath = '') => {
+       //     return `http://image.tmdb.org/t/p/${size}${posterPath}`;
+      //  },
+      //  loadOriginalSize: (posterPath = '') => {
+       //     return `http://image.tmdb.org/t/p/original${posterPath}`;
+       //  }
+       //    }; 
+         
+         const imgUrl= `https://image.tmdb.org/t/p/w500/dM2w364MScsjFf8pfMbaWUcWrR.jpg`;
         
 
          if (!movie) return null;
@@ -63,7 +81,7 @@ export class MovieView extends React.Component {
                     <h3 className='label'>Description</h3>
                     <p className='value'>{movie.Description}</p>
                 </div>
-                <img alt='' className='movie-poster' src={movie.ImageURL || imgUrl } />
+                <img alt='' className='movie-poster' src={ imgUrl } />
 
                 <div className='movie-genre'>
                     <Link to={`/genre/${movie.Genre.Name}`}>
