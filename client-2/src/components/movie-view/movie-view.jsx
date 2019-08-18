@@ -45,12 +45,12 @@ export class MovieView extends React.Component {
      render() {
          const { movie } = this.props;
 
+         // Below I am trying to run a search using theMovieDB search variable to find the movie that was passed down in the movie props. 
+         // After the movie is found with axios I want to pass on the posterPath from the previous axios search to the poster variable and 
+         // use the poster variable to to render the img poster of the specified movie.
+
          //const apiKey = 'e23e5607a1801b5693cf7ee99ff11da0';
 
-         
-       
-
-        
        // const theMovieDBSearch = movie =>
        // axios.get(
        // `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}=en-US&query=${movie.Title}&page=1&include_adult=false`
