@@ -9,13 +9,37 @@ import axios from 'axios';
 export class MovieView extends React.Component {
     constructor() {
         super();
-
-        this.state = {};
+        
+        this.state = {
+            testingUrl: []
+        };
     }
 
+    componentDidMount() {
+        this.searchMovieDB();
 
-  
-    
+        }
+       
+        
+        
+
+    searchMovieDB() {
+        const movie = this.props;
+        let apiKey= 'e23e5607a1801b5693cf7ee99ff11da0';
+        let apiUrl= `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${movie.Title}&page=1&include_adult=false`;
+         axios.get({apiUrl}).then(response => {
+             response.status(200).json(response.data);
+             console.log(response.data);
+             this.setState({
+                 testingUrl: response.data
+             })
+             
+             })
+           
+        }
+
+
+   
 
     submitLike(event) {
         event.preventDefault();
@@ -44,29 +68,10 @@ export class MovieView extends React.Component {
 
      render() {
          const { movie } = this.props;
-
-         // Below I am trying to run a search using theMovieDB search variable to find the movie that was passed down in the movie props. 
-         // After the movie is found with axios I want to pass on the posterPath from the previous axios search to the poster variable and 
-         // use the poster variable to to render the img poster of the specified movie.
-
-         //const apiKey = 'e23e5607a1801b5693cf7ee99ff11da0';
-
-       // const theMovieDBSearch = movie =>
-       // axios.get(
-       // `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}=en-US&query=${movie.Title}&page=1&include_adult=false`
-    
-      //  );
-
-      //  const poster = {
-      //  loadSize: (size = 'w300', posterPath = '') => {
-       //     return `http://image.tmdb.org/t/p/${size}${posterPath}`;
-      //  },
-      //  loadOriginalSize: (posterPath = '') => {
-       //     return `http://image.tmdb.org/t/p/original${posterPath}`;
-       //  }
-       //    }; 
          
-         const imgUrl= `https://image.tmdb.org/t/p/w500/dM2w364MScsjFf8pfMbaWUcWrR.jpg`;
+
+         
+         //const imgUrl= `https://image.tmdb.org/t/p/w500/dM2w364MScsjFf8pfMbaWUcWrR.jpg`;
         
 
          if (!movie) return null;
@@ -81,7 +86,9 @@ export class MovieView extends React.Component {
                     <h3 className='label'>Description</h3>
                     <p className='value'>{movie.Description}</p>
                 </div>
-                <img alt='' className='movie-poster' src={ imgUrl } />
+                <img alt='' className='movie-poster'  />
+                <p>{this.state.testingUrl}</p>
+            
 
                 <div className='movie-genre'>
                     <Link to={`/genre/${movie.Genre.Name}`}>
@@ -106,9 +113,9 @@ export class MovieView extends React.Component {
      
 }
 
-MovieView.propTypes = {
-    movie: PropTypes.shape({
-        Title: PropTypes.string,
-    }).isRequired,
+//MovieView.propTypes = {
+  //  movie: PropTypes.shape({
+ //       Title: PropTypes.string,
+ //   }).isRequired,
    
-};
+//};
