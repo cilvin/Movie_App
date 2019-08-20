@@ -1,19 +1,26 @@
 import React from 'react';
 import axios from 'axios';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
+import  MovieView  from '../movie-view/movie-view';
 import { LoginView } from '../login-view/login-view';
-import { DirectorView } from '../director-view/director-view';
+import  DirectorView  from '../director-view/director-view';
 import { ProfileView } from '../profile-view/profile-view';
-import { GenreView } from '../genre-view/genre-view';
+import  GenreView from '../genre-view/genre-view';
 import { RegistrationView } from '../registration-view/registration-view';
 import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
+
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './main-view.scss';
+import { connect } from 'react-redux';
+
+
+
+import MoviesList from '../movies-list/movies-list';
+
+
+import { setMovies, setLoggedInUser } from '../../actions/actions';
 
 export class MainView extends React.Component {
     constructor() {
@@ -45,6 +52,21 @@ export class MainView extends React.Component {
        
     }
 
+    getUser(token) {
+        let username = localStorage.getItem('user');
+        let userEndpoint = 'https://floating-ocean-36499.herokuapp.com/users/';
+        let url = `${userEndpoint}${username}`;
+        axios.get(url, {
+          headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+            this.props.setLoggedInUser(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
 
     
     onLoggedIn(authData) {
@@ -55,7 +77,7 @@ export class MainView extends React.Component {
          
           
         });
-      
+        this.props.setLoggedInUser(authData.user);
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
         this.getMovies(authData.token);
@@ -67,10 +89,7 @@ export class MainView extends React.Component {
         })
         .then(response => {
           // Assign the result to the state
-          this.setState({
-            movies: response.data
-          });
-          localStorage.setItem('movies', JSON.stringify(this.state.movies));
+          this.props.setMovies(response.data);
         })
         .catch(function (error) {
           console.log(error);
@@ -133,30 +152,18 @@ export class MainView extends React.Component {
                         <Row>
                             <Route exact path='/' render={ () => {
                                 if(!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>;
-                                return movies.map(movie => (
-                                    <Col key={movie._id} xl={4} sm={6} md={4} xs={10}>
-                                        <MovieCard key={movie._id} movie={movie} />
-                                    </Col> 
-                                ))}
-                            }/>
-                            <Route path='/movies/:movieId' render={ ({match}) => <MovieView movie={movies.find(movie => movie._id === match.params.movieId)}/>}/>
+                                return <MoviesList/>
+                            }}/>
+                            <Route path='/movies/:movieId' render={ ({match}) => <MovieView movieId={match.params.movieId}/>}/>
                             
                             <Route path='/register' render={() => <RegistrationView onSignedIn={user => this.onSignedIn(user)} />}/>
 
-                            <Route exact path='/genre/:name' render={({match}) => {
-                                if (!movies || !movies.length) return <div className='main-view'/>;
-                                return <GenreView genre={movies.find(m => m.Genre.Name === match.params.name)}/>}
-                            }/>
+                            <Route exact path='/genre/:name' render={({ match }) => <GenreView genreName={match.params.name}/>}/>
 
-                            <Route exact path='/director/:name' render={({match}) => {
-                                if (!movies || !movies.length) return <div className='main-view'/>;
-                                return <DirectorView director={movies.find(m => m.Director.Name === match.params.name)}/>}
-                            }/>
-                            
+                            <Route exact path="/director/:name" render={({ match }) => <DirectorView directorName={match.params.name}/>}/>
 
 
-                            <Route exact path='/profile' render={({match}) => <ProfileView onLoggedIn={this.state.onLoggedIn} movie={this.state.movies} thisUser={this.state.user} user={profileData} />}/>
-
+                            <Route exact path="/profile" render={() => <ProfileView />}/>
                             
 
                             
@@ -168,3 +175,4 @@ export class MainView extends React.Component {
         );
     }
 }
+export default connect(null, { setMovies, setLoggedInUser } )(MainView);
