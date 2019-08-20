@@ -98,9 +98,6 @@ export class MainView extends React.Component {
         })
     }
 
-    
-
-
 
     //This overrides the render() method of the superclass
     //No need to call super() though, as it does nothing by default
@@ -115,11 +112,11 @@ export class MainView extends React.Component {
         return (
             <Router>
                 
-                <header class="header">
-                    <p  class="logo">Welcome to my Movie Reel App</p>
-                    <input class="menu-btn" type="checkbox" id="menu-btn" />
-                    <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-                    <ul class="menu">
+                <header className="header">
+                    <p  className="logo">Welcome to my Movie Reel App</p>
+                    <input className="menu-btn" type="checkbox" id="menu-btn" />
+                    <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
+                    <ul className="menu">
                     <li><Link to={'/profile'}>
                             <Button id='profilebtn' variant='outline-dark'>
                                 My profile

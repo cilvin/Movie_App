@@ -24,18 +24,17 @@ export class MovieView extends React.Component {
         
 
     searchMovieDB() {
-        const movie = this.props;
+        const  movie   = this.props;
         let apiKey= 'e23e5607a1801b5693cf7ee99ff11da0';
         let apiUrl= `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${movie.Title}&page=1&include_adult=false`;
-         axios.get({apiUrl}).then(response => {
-             response.status(200).json(response.data);
+         axios.get(apiUrl).then(response => {
+            // response.status(200).json(response.data);
              console.log(response.data);
-             this.setState({
-                 testingUrl: response.data
+           //  this.setState({
+            //     testingUrl: response.data
              })
              
-             })
-           
+            // })          
         }
 
 
@@ -68,8 +67,6 @@ export class MovieView extends React.Component {
 
      render() {
          const { movie } = this.props;
-         
-
          
          //const imgUrl= `https://image.tmdb.org/t/p/w500/dM2w364MScsjFf8pfMbaWUcWrR.jpg`;
         
