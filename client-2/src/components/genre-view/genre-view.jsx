@@ -1,38 +1,32 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import './genre-view.scss';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+//import moviesList from '../movies-list/movies-list';
 
 
-export class GenreView extends React.Component {
-    constructor() {
-        super();
+function GenreView(props) {
+ const { movies, genreName } = props;
 
-        this.state = {};
-    }
-     render() {
-         const { genre } = this.props;
+ if (!movies || !movies.length ) return null;
 
-         if (!genre) return null;
+ const genre = movies.find(movie => movie.Genre.Name === genreName);
 
-         return (
-             <div className='genre-view'>
-                <h1 className='genre'>{genre.Genre.Name}</h1>
-                <div className='description'>{genre.Genre.Description}</div>
-                <Link to={'/'}>
-                    <Button variant='outline-dark'>Back</Button>
-                </Link>
-                
-             </div>
-         );
-     }
-     
-}
 
-GenreView.propTypes = {
-    genre: PropTypes.shape({
-        Name: PropTypes.string,
-        Description: PropTypes.string
-    }).isRequired,
-};
+ return (
+    <div className='genre-view'>
+       <h1 className='genre'>{genre.Genre.Name}</h1>
+       <div className='description'>{genre.Genre.Description}</div>
+       <Link to={'/'}>
+           <Button variant='outline-dark'>Back</Button>
+       </Link>
+       
+    </div>
+);
+
+ }
+
+ export default connect(({movies}) => ({movies}))(GenreView);
+
+
