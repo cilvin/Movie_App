@@ -9,6 +9,8 @@ import { connect } from 'react-redux';
 function MovieView(props) {
     const { movies, movieId } = props;
 
+    
+
     if (!movies || !movies.length) return null;
 
     const movie = movies.find(movie => movie._id == movieId);
@@ -28,7 +30,7 @@ function MovieView(props) {
           console.log(response);
           alert('Movie has been added to your Favorite List!');
           //update localStorage
-          localStorage.setItem('user', this.state.username);
+          localStorage.setItem('user', usernameLocal);
         })
         .catch(error => {
           console.log(error);
