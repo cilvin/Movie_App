@@ -153,6 +153,8 @@ export class ProfileView extends React.Component {
 
      render() {
          const { userData, username, email, birthday, favoriteMovies } = this.state;
+        
+         const favoriteMovieList = this.props.movies.filter(m => this.state.favoriteMovies.includes(m._id));
 
          if (!userData ) return null;
 
@@ -176,13 +178,19 @@ export class ProfileView extends React.Component {
                     <div className='value'>{email}</div>
                 </div>
                 <div className='favoritemovies'>
-                    <div className='label'>Favorite Movies</div>
-                    {favoriteMovies.length === 0 &&
-                        <div className="value">Your Favorite Movie List is empty :-(</div>
-                    }
-                    {favoriteMovies.length > 0 &&
-                        <div className="value">{favoriteMovies.map(favoriteMovie => (<p key={favoriteMovie}>{JSON.parse(localStorage.getItem('movies')).find(movie => movie._id === favoriteMovie)._id}<span onClick={(event) => this.deleteMovie(event, favoriteMovie)}> Delete</span></p>))}</div>
-                    }
+                    Favorite Movies:  
+                    {favoriteMovieList.map( m => (
+                    <div key={m._id} className='fav-movies-button'>
+                    <Link to={`/movies/${m._id}`}>
+                    <Button variant='link'>{m.Title}</Button>
+                    </Link>
+                    <Button onClick={(event) => this.deleteMovie(event, favoriteMovies)}> Delete</Button>
+                    </div>
+                        
+                        
+                    ))}
+                    
+                        
                 </div>
                 <Link to={'/'}>
                     <Button className='view-btn' variant='outline-dark' type='button'>

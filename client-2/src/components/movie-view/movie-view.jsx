@@ -38,6 +38,7 @@ function MovieView(props) {
 
 
 
+
     return (
         <div className='movie-view'>
             <div className='movie-title'>
