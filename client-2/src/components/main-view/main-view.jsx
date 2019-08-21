@@ -47,7 +47,6 @@ export class MainView extends React.Component {
 
             });
             this.getMovies(accessToken);
-           
         }
        
     }
@@ -94,6 +93,7 @@ export class MainView extends React.Component {
         .catch(function (error) {
           console.log(error);
         });
+        
       }
 
   
@@ -123,7 +123,7 @@ export class MainView extends React.Component {
     render() {
         // If the state isn't initialized, this will throw on runtime
         // before the data is initially loaded 
-        const {movies,  user, profileData} = this.state;
+        const {movies,  user} = this.state;
        
         //Before the movies have been loaded
         //if(!movies) return <div className='main-view'/>;
@@ -163,7 +163,7 @@ export class MainView extends React.Component {
                             <Route exact path="/director/:name" render={({ match }) => <DirectorView directorName={match.params.name}/>}/>
 
 
-                            <Route exact path="/profile" render={() => <ProfileView />}/>
+                            <Route exact path="/profile" render={() => <ProfileView movies={movies} />}/>
                             
 
                             
