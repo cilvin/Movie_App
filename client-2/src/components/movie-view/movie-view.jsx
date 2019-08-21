@@ -30,7 +30,7 @@ function MovieView(props) {
           console.log(response);
           alert('Movie has been added to your Favorite List!');
           //update localStorage
-          localStorage.setItem('user', usernameLocal);
+          localStorage.setItem('user', this.state.username);
         })
         .catch(error => {
           console.log(error);

@@ -154,7 +154,7 @@ export class MainView extends React.Component {
                                 if(!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)}/>;
                                 return <MoviesList/>
                             }}/>
-                            <Route path='/movies/:movieId' render={ ({match}) => <MovieView movieId={match.params.movieId}/>}/>
+                            <Route path='/movies/:movieId' render={ ({match}) => <MovieView  movieId={match.params.movieId}/>}/>
                             
                             <Route path='/register' render={() => <RegistrationView onSignedIn={user => this.onSignedIn(user)} />}/>
 
