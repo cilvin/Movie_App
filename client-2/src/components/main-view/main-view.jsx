@@ -88,7 +88,7 @@ export class MainView extends React.Component {
         })
         .then(response => {
           // Assign the result to the state
-          this.props.setMovies(response.data);
+          this.props.getMovies(response.data);
         })
         .catch(function (error) {
           console.log(error);
