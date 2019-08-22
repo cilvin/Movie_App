@@ -182,7 +182,7 @@ export class ProfileView extends React.Component {
                     {favoriteMovieList.map( m => (
                     <div key={m._id} className='fav-movies-button'>
                     <Link to={`/movies/${m._id}`}>
-                    <Button variant='link'>{m.Title}</Button>
+                    <Button variant='link'>{m._id}</Button>
                     </Link>
                     <Button onClick={(event) => this.deleteMovie(event, favoriteMovies)}> Delete</Button>
                     </div>
