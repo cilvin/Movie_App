@@ -125,8 +125,7 @@ export class MainView extends React.Component {
         // before the data is initially loaded 
         const {movies,  user} = this.state;
        
-        //Before the movies have been loaded
-        //if(!movies) return <div className='main-view'/>;
+        
 
         return (
             <Router>

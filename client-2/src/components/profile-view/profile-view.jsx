@@ -5,6 +5,7 @@ import './profile-view.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
 //import ListGroup from 'react-bootstrap/ListGroup';
 //import { FORM } from 'dns';
 
@@ -153,9 +154,8 @@ export class ProfileView extends React.Component {
 
      render() {
          const { userData, username, email, birthday, favoriteMovies } = this.state;
-        
-         const favoriteMovieList = this.props.movies.filter(m => this.state.favoriteMovies.includes(m._id));
-
+         const {movies} = this.props.movies;
+         
          if (!userData ) return null;
 
          return (
@@ -177,20 +177,15 @@ export class ProfileView extends React.Component {
                     <h4 className='label'>Email:</h4>
                     <div className='value'>{email}</div>
                 </div>
-                <div className='favoritemovies'>
-                    Favorite Movies:  
-                    {favoriteMovieList.map( m => (
-                    <div key={m._id} className='fav-movies-button'>
-                    <Link to={`/movies/${m._id}`}>
-                    <Button variant='link'>{m._id}</Button>
-                    </Link>
-                    <Button onClick={(event) => this.deleteMovie(event, favoriteMovies)}> Delete</Button>
-                    </div>
-                        
-                        
-                    ))}
-                    
-                        
+                <div className='favorite-movies'>
+                    <div className='label'>Favorite Movies</div>
+                        {favoriteMovies.length === 0 &&
+                            <div className="value">Your Favorite Movie List is empty :-(</div>
+                        }
+                        {favoriteMovies.length > 0 &&
+                            <div className="value">{favoriteMovies.map(favoriteMovie => (<p key={favoriteMovie}>{JSON.parse({movies}).find(movie => movie._id === favoriteMovie)._id}<span onClick={(event) => this.deleteMovie(event, favoriteMovie)}> Delete</span></p>))}</div>
+                        }
+
                 </div>
                 <Link to={'/'}>
                     <Button className='view-btn' variant='outline-dark' type='button'>
