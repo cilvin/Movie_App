@@ -5,10 +5,49 @@ import './profile-view.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
-import Card from 'react-bootstrap/Card';
+//import Card from 'react-bootstrap/Card';
+import { connect } from 'react-redux';
 //import ListGroup from 'react-bootstrap/ListGroup';
 //import { FORM } from 'dns';
 
+const mapStateToProps = state => {
+    const { movies } = state;
+    return { movies };
+};
+
+class ErrorBoundary extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = { error: null, errorInfo: null };
+    }
+    
+    componentDidCatch(error, errorInfo) {
+      // Catch errors in any components below and re-render with error message
+      this.setState({
+        error: error,
+        errorInfo: errorInfo
+      })
+     
+    }
+    
+    render() {
+      if (this.state.errorInfo) {
+        // Error path
+        return (
+          <div>
+            <h2>Something went wrong.</h2>
+            <details style={{ whiteSpace: 'pre-wrap' }}>
+              {this.state.error && this.state.error.toString()}
+              <br />
+              {this.state.errorInfo.componentStack}
+            </details>
+          </div>
+        );
+      }
+     
+      return this.props.children;
+    }  
+  }
 
 export class ProfileView extends React.Component {
     constructor() {
@@ -28,6 +67,10 @@ export class ProfileView extends React.Component {
            
         };
     }
+
+    
+
+   
 
     componentDidMount() {
         let accessToken = localStorage.getItem('token');
@@ -177,6 +220,7 @@ export class ProfileView extends React.Component {
                     <h4 className='label'>Email:</h4>
                     <div className='value'>{email}</div>
                 </div>
+                <ErrorBoundary>
                 <div className='favorite-movies'>
                     <div className='label'>Favorite Movies</div>
                         {favoriteMovies.length === 0 &&
@@ -187,6 +231,7 @@ export class ProfileView extends React.Component {
                         }
 
                 </div>
+                </ErrorBoundary>
                 <Link to={'/'}>
                     <Button className='view-btn' variant='outline-dark' type='button'>
                         Back
@@ -232,9 +277,10 @@ export class ProfileView extends React.Component {
 
              </div>
          );
-     }
-     
+     }    
 }
+
+export default connect(mapStateToProps)(ProfileView);
 
 //ProfileView.propTypes = {
  //   Director: PropTypes.shape({
