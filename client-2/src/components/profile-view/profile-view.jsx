@@ -7,13 +7,15 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 //import Card from 'react-bootstrap/Card';
 import { connect } from 'react-redux';
+//import Card from "react-bootstrap/Card";
+//import { setMovies, setFavorites } from "../../actions/actions";
 //import ListGroup from 'react-bootstrap/ListGroup';
 //import { FORM } from 'dns';
 
 const mapStateToProps = state => {
     const { movies } = state;
     return { movies };
-};
+   };
 
 
 
@@ -31,7 +33,8 @@ export class ProfileView extends React.Component {
             usernameForm: null,
             passwordForm: null,
             emailForm: null,
-            birthdayForm: null
+            birthdayForm: null,
+            
            
         };
     }
@@ -164,14 +167,20 @@ export class ProfileView extends React.Component {
 
 
      render() {
-         const { userData, username, email, birthday, favoriteMovies } = this.state;
-         const {movies} = this.props.movies;
+         const { userData, username, email, birthday, favoriteMovies} = this.state;
+         const  { movies } = this.props;
+         
+         console.log('fv',favoriteMovies);
+         console.log('log m', movies);
+       
+      
          
          if (!userData ) return null;
 
          return (
              <div className='profile-view'>
                 <h4 className='director'>User Profile</h4>
+                <hr></hr>
                 <div className='username'>
                     <h4 className='label'>Name:</h4>
                     <div className='value'>{username}</div>
@@ -181,7 +190,7 @@ export class ProfileView extends React.Component {
                     <div className='value'>********</div>
                 </div>
                 <div className='birthday'>
-                    <h2 className='label'>Birthday</h2>
+                    <h4 className='label'>Birthday</h4>
                     <div className='value'>{birthday}</div>
                 </div>
                 <div className='email'>
@@ -195,7 +204,11 @@ export class ProfileView extends React.Component {
                             <div className="value">Your Favorite Movie List is empty :-(</div>
                         }
                         {favoriteMovies.length > 0 &&
-                            <div className="value">{favoriteMovies.map(favoriteMovie => (<p key={favoriteMovie}>{JSON.parse({movies}).find(movie => movie._id === favoriteMovie)._id}<span onClick={(event) => this.deleteMovie(event, favoriteMovie)}> Delete</span></p>))}</div>
+                            <div className="value">
+                                {favoriteMovies.map(favoriteMovie =>
+                                 (<p key={favoriteMovie}>{(movies).find(movie => movie._id === favoriteMovie)}
+                                 <span onClick={(event) => this.deleteMovie(event, favoriteMovie)}> Delete</span></p>))}
+                            </div>
                         }
 
                 </div>
@@ -247,6 +260,7 @@ export class ProfileView extends React.Component {
          );
      }    
 }
+
 
 export default connect(mapStateToProps)(ProfileView);
 
