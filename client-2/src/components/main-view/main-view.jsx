@@ -166,7 +166,7 @@ export class MainView extends React.Component {
                             <Route exact path="/director/:name" render={({ match }) => <DirectorView directorName={match.params.name}/>}/>
 
 
-                            <Route exact path="/profile" render={() => <ProfileView movies={movies} />}/>
+                            <Route exact path="/profile" render={() => <ProfileView  />}/>
                             
 
                             
