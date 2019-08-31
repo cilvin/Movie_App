@@ -131,7 +131,11 @@ export class MainView extends React.Component {
             <Router>
                 
                 <header className="header">
-                    <p  className="logo">Welcome to my Movie Reel App</p>
+                    <Link  to={'/'}>
+                        <div alt='clap' className='logohme'>
+                        </div>
+                    </Link>
+                    <p  className="logo" id="hide">Welcome to my Movie Reel App</p>
                     <input className="menu-btn" type="checkbox" id="menu-btn" />
                     <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
                     <ul className="menu">

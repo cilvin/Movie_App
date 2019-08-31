@@ -32,7 +32,7 @@ function MoviesList(props) {
         <Container>
             <Row>
             {movies.map(m => (
-                <Col key={m._id} xs={6} sm={6} md={4} >
+                <Col key={m._id} xs={8} sm={6} md={4} >
                     <MovieCard key={m.id} movie={m}/>
                 </Col>
             ))
