@@ -84,7 +84,7 @@ class ProfileView extends React.Component {
         window.open('/', '_self');
       })
       .catch(event => {
-        alert('failed to delete user');
+        alert(event, 'failed to delete user');
       });
   }
 
@@ -103,7 +103,7 @@ class ProfileView extends React.Component {
         this.getUser(localStorage.getItem('token'));
       })
       .catch(event => {
-        alert('Oops... something went wrong...');
+        alert(event, 'Oops... something went wrong...');
       });
   }
 
@@ -142,7 +142,7 @@ class ProfileView extends React.Component {
           .requestFullscreen();
       })
       .catch(event => {
-        console.log('error updating the userdata');
+        console.log(event,'error updating the userdata');
         alert('Ooooops... Something went wrong!');
       });
   }
