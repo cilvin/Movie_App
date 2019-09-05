@@ -5,6 +5,7 @@ import { MovieCard } from '../movie-card/movie-card';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import './movies-list.scss';
 
 const mapStateToProps = state => {
   const { movies, visibilityFilter, sortColumn } = state;
