@@ -13,25 +13,27 @@ export class MovieCard extends React.Component {
     const { movie } = this.props;
 
     return (
-      <Card>
-        <Card.Header>{movie.Title}</Card.Header>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <Link to={`/movies/${movie._id}`}>
-          <Button
-            type="button"
-            as="button"
-            variant="outline-dark"
-            size="sm"
-            className="movie-button"
-          >
-            Click Here
-          </Button>
-        </Link>
-      </Card>
+      <Link id="link" to={`/movies/${movie._id}`}>
+        <Card>
+          <Card.Header>{movie.Title}</Card.Header>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <Link to={`/movies/${movie._id}`}>
+            <Button
+              type="button"
+              as="button"
+              variant="outline-dark"
+              size="sm"
+              className="movie-button"
+            >
+              Click Here
+            </Button>
+          </Link>
+        </Card>
+      </Link>
     );
   }
 }

@@ -237,7 +237,7 @@ class ProfileView extends React.Component {
           type="button"
           onClick={event => this.deleteUser(event)}
         >
-          Delete
+          Un-Register
         </Button>
         <Button
           id="toggleButton"
