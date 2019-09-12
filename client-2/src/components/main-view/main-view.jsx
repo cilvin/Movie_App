@@ -120,81 +120,83 @@ export class MainView extends React.Component {
           <p className="logo" id="hide">
             Welcome to my Movie Reel App
           </p>
-          <input className="menu-btn" type="checkbox" id="menu-btn" />
-          <label className="menu-icon" htmlFor="menu-btn">
-            <span className="navicon"></span>
-          </label>
-          <ul className="menu">
-            <li>
-              <Link to={'/profile'}>
-                <Button id="profilebtn" variant="outline-dark">
-                  My profile
-                </Button>
-              </Link>
-            </li>
-            <li>
-              <Button
-                id="logoutbtn"
-                variant="outline-dark"
-                onClick={() => this.logOut()}
-              >
-                {' '}
-                LogOut
-              </Button>
-            </li>
-          </ul>
+          <div className="nav">
+            {user && (
+              <div>
+                <input className="menu-btn" type="checkbox" id="menu-btn" />
+                <label className="menu-icon" htmlFor="menu-btn">
+                  <span className="navicon"></span>
+                </label>
+                <ul className="menu">
+                  <li>
+                    <Link to={'/profile'}>
+                      <Button id="profilebtn" variant="outline-dark">
+                        My profile
+                      </Button>
+                    </Link>
+                  </li>
+                  <li>
+                    <Button
+                      id="logoutbtn"
+                      variant="outline-dark"
+                      onClick={() => this.logOut()}
+                    >
+                      {' '}
+                      LogOut
+                    </Button>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
         </header>
 
-        <div className="main-view">
-          <Container className="main-view">
-            <Row>
-              <Route
-                exact
-                path="/"
-                render={() => {
-                  if (!user)
-                    return (
-                      <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-                    );
-                  return <MoviesList />;
-                }}
-              />
-              <Route
-                path="/movies/:movieId"
-                render={({ match }) => (
-                  <MovieView movieId={match.params.movieId} />
-                )}
-              />
+        <Container className="main-view">
+          <Row>
+            <Route
+              exact
+              path="/"
+              render={() => {
+                if (!user)
+                  return (
+                    <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                  );
+                return <MoviesList />;
+              }}
+            />
+            <Route
+              path="/movies/:movieId"
+              render={({ match }) => (
+                <MovieView movieId={match.params.movieId} />
+              )}
+            />
 
-              <Route
-                path="/register"
-                render={() => (
-                  <RegistrationView
-                    onSignedIn={user => this.onSignedIn(user)}
-                  />
-                )}
-              />
+            <Route
+              path="/register"
+              render={() => (
+                <RegistrationView onSignedIn={user => this.onSignedIn(user)} />
+              )}
+            />
 
-              <Route
-                exact
-                path="/genre/:name"
-                render={({ match }) => (
-                  <GenreView genreName={match.params.name} />
-                )}
-              />
+            <Route
+              exact
+              path="/genre/:name"
+              render={({ match }) => (
+                <GenreView genreName={match.params.name} />
+              )}
+            />
 
-              <Route
-                exact
-                path="/director/:name"
-                render={({ match }) => (
-                  <DirectorView directorName={match.params.name} />
-                )}
-              />
+            <Route
+              exact
+              path="/director/:name"
+              render={({ match }) => (
+                <DirectorView directorName={match.params.name} />
+              )}
+            />
 
-              <Route exact path="/profile" render={() => <ProfileView />} />
-            </Row>
-          </Container>
-        </div>
+            <Route exact path="/profile" render={() => <ProfileView />} />
+          </Row>
+        </Container>
       </Router>
     );
   }

@@ -31,7 +31,9 @@ function MoviesList(props) {
   if (!movies) return <div className="main-view" />;
 
   return (
+    
     <div className="movie-list">
+      
       <VisibilityFilterInput />
       <Container>
         <Row>
