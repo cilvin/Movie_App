@@ -4,6 +4,12 @@
     background-color: rgba(189,192,193,1);
     
 }
+
+.card {
+    width: 300px;
+    height: 400px;
+    margin-bottom: 300px;
+}
   
 
 #link {
@@ -15,12 +21,7 @@
     max-width: 30%;
 }
 
-@media (max-width: 500px) {
-    .card {
-        width: 200px;
-        height: 200px;
-    }
-}
+
 
 
 

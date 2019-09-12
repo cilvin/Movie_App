@@ -6,6 +6,8 @@ html {
   background-color: #fff;
 }
 
+
+
 .row {
   position: relative;
   top: 30px;
@@ -40,6 +42,10 @@ html {
  
 }
 
+.nav{
+  display: flex;
+  justify-content: flex-end;
+}
 
 
 
@@ -62,14 +68,17 @@ html {
 .header ul {
   margin: 0;
   padding: 0;
+  margin-right: 10px;
   list-style: none;
   overflow: hidden;
   background-color: #fff;
 }
 
 li {
-    margin: 5px;
+    
     margin-top: 15px;
+    margin-left: 10px;
+    margin-right: 0px;
 }
 
 .logohme {
@@ -81,7 +90,6 @@ li {
   margin-left: 10px;
   
 }
-
 
 
 
@@ -183,7 +191,7 @@ li {
 
 /* 48em = 768px */
 
-@media (min-width: 770px) {
+@media (min-width: 875px) {
   .header li {
     float: left;
   }
