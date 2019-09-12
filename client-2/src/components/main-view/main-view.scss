@@ -14,6 +14,10 @@ html {
 
 }
 
+p {
+  color: white;
+}
+
 .main-view {
   margin-left: auto;
   margin-right: auto;
@@ -54,7 +58,7 @@ html {
 /* header */
 
 .header {
-  background-color: #fff;
+  background-color: #aa80ff;
   -webkit-box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
           box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
   border-bottom: 2px solid rgba(134,141,155,1);
@@ -71,7 +75,7 @@ html {
   margin-right: 10px;
   list-style: none;
   overflow: hidden;
-  background-color: #fff;
+  background-color: #aa80ff;
 }
 
 li {

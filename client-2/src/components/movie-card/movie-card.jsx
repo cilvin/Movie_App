@@ -14,9 +14,11 @@ export class MovieCard extends React.Component {
 
     return (
       <Card>
-        <Card.Header>{movie.Title}</Card.Header>
         <Card.Img variant="top" src={movie.ImageURL} />
-        <Link to={`/movies/${movie._id}`}>
+        <Card.Body>
+          <Card.Title>{movie.Title}</Card.Title>
+          <Card.Text><p>{movie.Description}</p></Card.Text>
+          <Link to={`/movies/${movie._id}`}>
           <Button
             type="button"
             as="button"
@@ -24,9 +26,11 @@ export class MovieCard extends React.Component {
             size="sm"
             className="movie-button"
           >
-            Click Here
+            Learn More
           </Button>
         </Link>
+        </Card.Body>
+        
       </Card>
     );
   }
