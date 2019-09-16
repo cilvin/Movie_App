@@ -44,11 +44,11 @@ function MovieView(props) {
         <div className='movie-view'>
             <div className='movie-title'>
                 <h2 className='label'>Title</h2>
-                <p className='value'>{movie.Title}</p>
+                <h5 className='value'>{movie.Title}</h5>
             </div>
             <div className='movie-description'>
                 <h3 className='label'>Description</h3>
-                <p className='value'>{movie.Description}</p>
+                <h6 className='value'>{movie.Description}</h6>
             </div>
             <img alt='' className='movie-poster'  />
         
@@ -57,7 +57,7 @@ function MovieView(props) {
             <div className='movie-genre'>
                 <Link to={`/genre/${movie.Genre.Name}`}>
                     <h3 className='label'>Genre</h3>
-                    <Button variant='outlin-dark'><p className='value'>{movie.Genre.Name}</p></Button>
+                    <Button variant='outlin-dark'><h5 className='value'>{movie.Genre.Name}</h5></Button>
                 </Link>
             </div>
             <div className='movie-director'>

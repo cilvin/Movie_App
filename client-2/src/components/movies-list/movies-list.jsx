@@ -33,7 +33,7 @@ function MoviesList(props) {
   return (
     
     <div className="movie-list">
-      
+      <br></br>
       <VisibilityFilterInput />
       <Container>
         <Row>
