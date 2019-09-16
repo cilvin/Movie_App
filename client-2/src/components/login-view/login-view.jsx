@@ -23,48 +23,53 @@ export function LoginView(props) {
         props.onLoggedIn(data);
       })
       .catch(e => {
-        console.log(e ,'no such user');
+        console.log(e, 'no such user');
       });
   };
 
   return (
-
-    
-    <Form>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Username:</Form.Label>
-        <Form.Control
-          type="text"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          placeholder="Enter email"
-        />
-        <Form.Text className="text-mute"></Form.Text>
-      </Form.Group>
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password:</Form.Label>
-        <Form.Control
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          placeholder="Enter Password"
-        />
-        <Form.Text className="text-muted"></Form.Text>
-      </Form.Group>
-      <Button variant="outline-dark" type="button" onClick={handleSubmit}>
-        Submit
-      </Button>
-      <Form.Group controlId="formNewUser">
-        <Form.Text className="newUsers">
-          New user? click{' '}
-          <Link to={'/register'}>
-            {' '}
-            <span>Here</span>
-          </Link>{' '}
-          to sign up{' '}
-        </Form.Text>
-      </Form.Group>
-    </Form>
+    <div className="containerL">
+      <Form>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Username:</Form.Label>
+          <Form.Control
+            type="text"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            placeholder="Enter email"
+          />
+          <Form.Text className="text-mute"></Form.Text>
+        </Form.Group>
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password:</Form.Label>
+          <Form.Control
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Enter Password"
+          />
+          <Form.Text className="text-muted"></Form.Text>
+        </Form.Group>
+        <Button
+          className="submit"
+          variant="outline-dark"
+          type="button"
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
+        <Form.Group controlId="formNewUser">
+          <Form.Text className="newUsers">
+            New user? click{' '}
+            <Link to={'/register'}>
+              {' '}
+              <span>Here</span>
+            </Link>{' '}
+            to sign up{' '}
+          </Form.Text>
+        </Form.Group>
+      </Form>
+    </div>
   );
 }
 

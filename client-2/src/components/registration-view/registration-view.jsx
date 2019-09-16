@@ -32,53 +32,56 @@ export function RegistrationView(props) {
   };
 
   return (
-    <Form>
-      <Form.Group controlId="formBasicUsername">
-        <Form.Label>Username:</Form.Label>
-        <Form.Control
-          type="username"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          placeholder="Enter Username"
-        />
-      </Form.Group>
+    <div className="containerR">
+      <Form>
+        <Form.Group controlId="formBasicUsername">
+          <Form.Label>Username:</Form.Label>
+          <Form.Control
+            type="username"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            placeholder="Enter Username"
+          />
+        </Form.Group>
 
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label>Password:</Form.Label>
-        <Form.Control
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          placeholder="Enter Password"
-        />
-      </Form.Group>
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password:</Form.Label>
+          <Form.Control
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Enter Password"
+          />
+        </Form.Group>
 
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email:</Form.Label>
-        <Form.Control
-          type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          placeholder="Enter Email"
-        />
-      </Form.Group>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email:</Form.Label>
+          <Form.Control
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="Enter Email"
+          />
+        </Form.Group>
 
-      <Form.Group controlId="formBasicBirthday">
-        <Form.Label>Birthday:</Form.Label>
-        <Form.Control
-          type="birthday"
-          value={birthday}
-          onChange={e => setBirthday(e.target.value)}
-          placeholder="Enter Birthday"
-        />
-      </Form.Group>
-      <Button
-        variant="outline-dark"
-        type="submit"
-        onClick={e => handleSubmit(e)}
-      >
-        Submit
-      </Button>
-    </Form>
+        <Form.Group controlId="formBasicBirthday">
+          <Form.Label>Birthday:</Form.Label>
+          <Form.Control
+            type="birthday"
+            value={birthday}
+            onChange={e => setBirthday(e.target.value)}
+            placeholder="Enter Birthday"
+          />
+        </Form.Group>
+        <Button
+          className="submit"
+          variant="outline-dark"
+          type="submit"
+          onClick={e => handleSubmit(e)}
+        >
+          Submit
+        </Button>
+      </Form>
+    </div>
   );
 }

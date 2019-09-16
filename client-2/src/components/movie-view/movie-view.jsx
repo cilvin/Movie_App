@@ -43,12 +43,12 @@ function MovieView(props) {
     return (
         <div className='movie-view'>
             <div className='movie-title'>
-                <h2 className='label'>Title</h2>
-                <h5 className='value'>{movie.Title}</h5>
+                <h3 className='label'>Title</h3>
+                <p className='value'>{movie.Title}</p>
             </div>
             <div className='movie-description'>
                 <h3 className='label'>Description</h3>
-                <h6 className='value'>{movie.Description}</h6>
+                <p className='value'>{movie.Description}</p>
             </div>
             <img alt='' className='movie-poster'  />
         
@@ -57,20 +57,20 @@ function MovieView(props) {
             <div className='movie-genre'>
                 <Link to={`/genre/${movie.Genre.Name}`}>
                     <h3 className='label'>Genre</h3>
-                    <Button variant='outlin-dark'><h5 className='value'>{movie.Genre.Name}</h5></Button>
+                    <Button variant='outlin-dark'><p className='value'>{movie.Genre.Name}</p></Button>
                 </Link>
             </div>
             <div className='movie-director'>
                 <Link to={`/director/${movie.Director.Name}`}>
                     <h3 className='label'>Director</h3>
                 </Link>
-                <h4>{movie.Director.Name}</h4>
+                <p>{movie.Director.Name}</p>
             </div>
             <Link to={'/'}>
-                <Button variant='outline-dark' >Back</Button>
+                <Button className="back" variant='outline-dark' >Back</Button>
             </Link>
         
-            <Button variant='outline-dark' onClick={event => submitLike(event)}>Like</Button>
+            <Button className="like" variant='outline-dark' onClick={event => submitLike(event)}>Like</Button>
      </div>
 
     );

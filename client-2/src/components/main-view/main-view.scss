@@ -61,7 +61,7 @@ p {
   background-color: #aa80ff;
   -webkit-box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
           box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
-  border-bottom: 2px solid rgba(134,141,155,1);
+  border-bottom: 2px solid#ddccff;
   position: fixed;
   z-index: 500;
   width: 100%;
@@ -218,6 +218,8 @@ li {
     visibility: hidden;
   }
 }
+
+
 
 
 

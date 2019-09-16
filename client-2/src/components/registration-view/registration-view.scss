@@ -9,3 +9,41 @@
 .form-group {
     margin-top: 45px;
 }
+
+.containerR {
+    background-color: #ddccff;
+    border-radius: 25px;
+    overflow: scroll;
+    width: 600px;
+    height: 400px;
+    margin-top: 50px;
+    -webkit-box-shadow: 0 2px 10px 0 rgba(134,141,155,1);
+          box-shadow: 0 2px 10px 0 rgba(134,141,155,1);
+}
+
+
+@media (max-width:620px ) {
+    .containerR {
+        background-color: #ddccff;
+        border-radius: 25px;
+        overflow: scroll;
+        width: 300px;
+        height: 400px;
+        margin-top: 50px;
+        -webkit-box-shadow: 0 2px 10px 0 rgba(134,141,155,1);
+              box-shadow: 0 2px 10px 0 rgba(134,141,155,1);
+    }
+  }
+
+  @media (max-width:310px ) {
+    .containerR {
+        background-color: #ddccff;
+        border-radius: 25px;
+        overflow: scroll;
+        width: 200px;
+        height: 400px;
+        margin-top: 50px;
+        -webkit-box-shadow: 0 2px 10px 0 rgba(134,141,155,1);
+              box-shadow: 0 2px 10px 0 rgba(134,141,155,1);
+    }
+  }
