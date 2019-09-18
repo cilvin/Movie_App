@@ -2,13 +2,67 @@
 //font-family: 'Marcellus', serif;
 //background-color:rgba(218,246,251,1);
 
-.profile-vew {
-    margin: 10px auto;
-    font-family: 'Marcellus', serif;
-    background-color:rgba(218,246,251,1);
+.view {
+    overflow: hidden;
 }
 
 
+.profile-view {
+    background-color: #ddccff;
+    border-radius: 25px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    width: 400px;
+    height: 1160px;
+    overflow: scroll;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 0 2px 10px 0 rgba(134, 141, 155, 1);
+    box-shadow: 0 2px 10px 0 rgba(134, 141, 155, 1);
+}
+
+h2 {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+h4 {
+    margin-left: 20px;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: bold;
+}
+
+.value {
+    margin-left: 20px;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.fav {
+    margin-top:-20px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.favorite-movies {
+    
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: bold;
+}
+
+.view-btn, .toggleButton {
+    margin-left: 20px;
+    margin-bottom: 40px;
+}
+
+.form-group {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.change-btn {
+    margin-left: 20px;
+}
 
 
 .profile-view h1 {

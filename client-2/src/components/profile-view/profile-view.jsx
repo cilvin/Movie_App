@@ -183,8 +183,9 @@ class ProfileView extends React.Component {
     if (!userData) return null;
 
     return (
+    <div className="view">
       <div className="profile-view">
-        <h4 className="director">User Profile</h4>
+        <h2 className="director">User Profile</h2>
         <hr></hr>
         <div className="username">
           <h4 className="label">Name:</h4>
@@ -204,11 +205,11 @@ class ProfileView extends React.Component {
         </div>
 
         <div className="favorite-movies">
-          <div className="label">Favorite Movies</div>​
+          <h4 className="label">Favorite Movies:</h4>​
           {movies && filteredFavMovie ? (
             <div className="value">
               {filteredFavMovie.map(favoriteMovie => (
-                <h4 key={favoriteMovie._id}>
+                <p className="fav" key={favoriteMovie._id}>
                   {favoriteMovie.Title}
                   <span
                     onClick={event =>
@@ -218,7 +219,7 @@ class ProfileView extends React.Component {
                     {' '}
                     Delete
                   </span>
-                </h4>
+                </p>
               ))}
             </div>
           ) : (
@@ -239,18 +240,11 @@ class ProfileView extends React.Component {
         >
           Un-Register
         </Button>
-        <Button
-          id="toggleButton"
-          className="vuew-btn"
-          variant="outline-dark"
-          type="button"
-          onClick={() => this.toggleForm()}
-        >
-          Change Data
-        </Button>
+     
 
         <Form className="changeDataForm">
           <h2>Change Data</h2>
+          <hr></hr>
           <Form.Group controlId="formBasicUsername">
             <Form.Label>Your Username</Form.Label>
             <Form.Control
@@ -259,7 +253,6 @@ class ProfileView extends React.Component {
               onChange={event => this.handleChange(event)}
               placeholder="Enter Username"
             />
-            <Form.Text className="text-muted">Type username here.</Form.Text>
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
@@ -293,6 +286,7 @@ class ProfileView extends React.Component {
           </Form.Group>
 
           <Button
+            className="change-btn"
             variant="outline-dark"
             type="button"
             onClick={event => this.handleSubmit(event)}
@@ -301,6 +295,7 @@ class ProfileView extends React.Component {
           </Button>
         </Form>
       </div>
+    </div>
     );
   }
 }

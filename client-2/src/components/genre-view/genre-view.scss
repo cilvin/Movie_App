@@ -2,14 +2,23 @@
 //font-family: 'Marcellus', serif;
 //background-color:rgba(218,246,251,1);
 
-.genre-vew {
-    margin: 10px auto;
-    font-family: 'Marcellus', serif;
-    background-color:rgba(218,246,251,1);
-}
+.genre-view {
+  background-color: #ddccff;
+  border-radius: 25px;
 
+  width: 700px;
+  height: 175px;
+  margin-top: 50px;
+  -webkit-box-shadow: 0 2px 10px 0 rgba(134, 141, 155, 1);
+  box-shadow: 0 2px 10px 0 rgba(134, 141, 155, 1);
+}
 
 .genre-view h1 {
-    font-family: 'Open Sans Condensed', sans-serif;
-
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: bold;
 }
+
+.genre, .description, .gbtn {
+    margin-left: 20px;
+}
+
