@@ -205,11 +205,11 @@ class ProfileView extends React.Component {
         </div>
 
         <div className="favorite-movies">
-          <h4 className="label">Favorite Movies:</h4>​
+          <h4 id="fav" className="label">Favorite Movies:</h4>​
           {movies && filteredFavMovie ? (
             <div className="value">
               {filteredFavMovie.map(favoriteMovie => (
-                <p className="fav" key={favoriteMovie._id}>
+                <div key={favoriteMovie._id}>
                   {favoriteMovie.Title}
                   <span
                     onClick={event =>
@@ -219,7 +219,7 @@ class ProfileView extends React.Component {
                     {' '}
                     Delete
                   </span>
-                </p>
+                </div>
               ))}
             </div>
           ) : (
