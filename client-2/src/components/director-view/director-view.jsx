@@ -16,14 +16,15 @@ function DirectorView(props) {
   return (
     <div className="director-view">
       <h1 className="director">{director.Name}</h1>
-      <h2>Biography</h2>
-      <div className="bio">{director.Bio}</div>
-      <h2>Born</h2>
-      <div className="birth">{director.Birth}</div>
-      <h2>Died</h2>
-      <h5 className="death">{director.Death}</h5>
+      <hr></hr>
+      <h2 id="info" >Biography</h2>
+        <div className="bio">{director.Bio}</div>
+      <h2 id="info">Born</h2>
+        <div className="birth">{director.Birth}</div>
+      <h2 id="info">Died</h2>
+        <div className="death">{director.Death}</div>
       <Link to={'/'}>
-        <Button variant="outline-dark">Back</Button>
+        <Button className="backbuttn" variant="outline-dark">Back</Button>
       </Link>
     </div>
   );
